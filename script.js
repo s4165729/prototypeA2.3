@@ -10,7 +10,7 @@ const startButton = document.getElementById('start');
 const clouds = [];
 for (let i = 0; i < frequencies.length; i++) {
     const cloud = document.createElement('div');
-    cloud.textContent = name[i];
+    cloud.textContent = names[i];
     sky.appendChild(cloud);
     clouds.push(cloud);
 }
@@ -21,10 +21,10 @@ startButton.onclick = () => {
     if (audioContext) return;
     audioContext = new AudioContext();
 
-    volumes = frequencies.map(frenquency => {
+    volumes = frequencies.map(frequency => {
         const tone = audioContext.createOscillator();
         const volume = audioContext.createGain();
-        tone.frenquency.value = frenquency; 
+        tone.frequency.value = frequency; 
         volume.gain.value = 0;
         tone.connect(volume);
         volume.connect(audioContext.destination);
@@ -57,17 +57,15 @@ function animate() {
         let closeness = 0
         if (pointer) {
             const distance = Math.hypot(pointer.x - x, pointer.y - y);
-            closeness = Math.max(0, 1 = distance / reach);
+            closeness = Math.max(0, 1 - distance / reach);
         }
 
         clouds[i].style.transform = 'scale(' + (1 + closeness * 0.6) + ')';
-        clouds[i].style.background = 'hsl(205. 55%, ' + (100 - closeness * 30) + '%)';
+        clouds[i].style.background = 'hsl(205, 55%, ' + (100 - closeness * 30) + '%)';
         if (audioContext) {
             volumes[i].gain.setTargetAtTime(closeness * closeness * 0.15, audioContext.currentTime, 0.05);
         }
     }
-
-    requestAnimationFrame(animate);
 
     requestAnimationFrame(animate);
 }
