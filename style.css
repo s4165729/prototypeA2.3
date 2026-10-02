@@ -5,28 +5,7 @@ body {
 
 button {
     padding: .5em 1em;
-}
-
-#sky {
-    position: relative;
-    height: 60vh;
-    overflow: hidden;
-    background: #dfeaf5;
-    touch-action: none;
-}
-
-#sky div {
-    position: absolute;
-    width: 90px;
-    height: 56px;
-    margin: -28px 0 0 -45px;
-    border-radius: 50%;
-    background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    user-select: none;
-    pointer-events: none;
+    margin-bottom: 1em;
 }
 
 #sky {
@@ -34,12 +13,15 @@ button {
     width: 100%;
     height: 600px;
     overflow: hidden;
+    background: #dfeaf5;
+    touch-action: none;
 }
 
 #sky div {
-    position:absolute;
+    position: absolute;
     width: 80px;
     height: 50px;
+
     border-radius: 50%;
 
     display: flex;
@@ -50,5 +32,6 @@ button {
     background: hsl(205, 55%, 100%);
 
     transform: translate(-50%, -50%);
+
     transition: background 0.1s;
 }
