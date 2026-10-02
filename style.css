@@ -1,0 +1,31 @@
+body {
+    font-family: sans-serif;
+    margin: 1em;
+}
+
+button {
+    padding: .5em 1em;
+}
+
+#sky {
+    position: relative;
+    height: 60vh;
+    overflow: hidden;
+    background: #dfeaf5;
+    touch-action: none;
+}
+
+#sky div {
+    position: absolute;
+    width: 90px;
+    height: 56px;
+    margin: -28px 0 0 -45px;
+    border-radius: 50%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    pointer-events: none;
+}
+
