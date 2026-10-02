@@ -24,11 +24,15 @@ startButton.onclick = () => {
     volumes = frequencies.map(frequency => {
         const tone = audioContext.createOscillator();
         const volume = audioContext.createGain();
+
         tone.frequency.value = frequency; 
         volume.gain.value = 0;
+
         tone.connect(volume);
         volume.connect(audioContext.destination);
+
         tone.start();
+
         return volume;
     });
 };
@@ -37,7 +41,10 @@ let pointer = null;
 
 sky.onpointermove = (event) => {
     const box = sky.getBoundingClientRect();
-    pointer = { x: event.clientX - box.left, y: event.clientY - box.top };
+    pointer = { 
+        x: event.clientX - box.left, 
+        y: event.clientY - box.top 
+    };
 };
 sky.onpointerleave = () => {
     pointer = null;
@@ -46,30 +53,48 @@ sky.onpointerleave = () => {
 function animate() {
     const width = sky.clientWidth; 
     const height = sky.clientHeight;
+
     const reach = 0.4 * Math.max(width, height);
 
     for (let i = 0; i <clouds.length; i++) {
         const x = homeX[i] * width;
         const y = homeY[i] * height;
+
         clouds[i].style.left = x + 'px';
         clouds[i].style.top = y + 'px';
 
         let closeness = 0
+
         if (pointer) {
-            const distance = Math.hypot(pointer.x - x, pointer.y - y);
-            closeness = Math.max(0, 1 - distance / reach);
+            const distance = Math.hypot(
+                pointer.x - x, 
+                pointer.y - y
+            );
+
+            closeness = Math.max(
+                0, 
+                1 - distance / reach
+            );
         }
 
-        clouds[i].style.transform = 'scale(' + (1 + closeness * 0.6) + ')';
-        clouds[i].style.background = 'hsl(205, 55%, ' + (100 - closeness * 30) + '%)';
+        clouds[i].style.transform = 
+        'translate(-50%, -50%) scale(' + (1 + closeness * 0.6) + ')';
+
+        clouds[i].style.background =
+         'hsl(205, 55%, ' + (100 - closeness * 30) + '%)'; 
+
         if (audioContext) {
-            volumes[i].gain.setTargetAtTime(closeness * closeness * 0.15, audioContext.currentTime, 0.05);
+            volumes[i].gain.setTargetAtTime(
+                closeness * closeness * 0.15,
+                 audioContext.currentTime,
+                  0.05
+                );
+
         }
     }
 
     requestAnimationFrame(animate);
 }
-
 animate();
 
 
